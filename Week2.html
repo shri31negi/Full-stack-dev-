@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us</title>
+  <style>
+   
+    :root {
+      --bg: hsl(214, 52%, 96%);           
+      --text: #2f2f2f;                       
+      --link: #e53935;                      
+      --link-hover: #820c01;                
+      --heading: rgb(34, 139, 230);         
+      --intro: rgba(12, 97, 8, 0.92);       
+      --bar: #2e8b57;                         
+      --muted: rgb(128, 0, 128);            
+      --shadow: 0 8px 20px rgba(0,0,0,.08);
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --card-border: rgba(0,0,0,.06);
+    }
+
+
+    body {
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 20px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    
+    #main-heading {
+      color: var(--heading);
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      text-shadow: 0 1px 0 rgba(255,255,255,.4);
+    }
+
+    
+    .intro {
+      color: var(--intro);
+      font-size: 18px;
+      text-align: center;
+      margin: 8px 0 18px;
+    }
+
+ 
+    a[target="_blank"] {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 700;
+      outline-offset: 2px;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+    }
+
+    .highlight::after {
+      content: " ⭐";
+      color: gold;
+    }
+
+    
+    .movies {
+      list-style-type: square;
+      color: var(--bar);
+      margin-left: 40px;
+      padding-left: 0;
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+  
+    .movies li.favorite {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 238, 179, 0.9), rgba(255, 230, 204, 0.9));
+      border-radius: 8px;
+      padding: 8px 10px;
+      border: 1px solid rgba(255, 170, 0, 0.5);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+    }
+    .movies li.favorite::before {
+      content: "★";
+      color: #ffd700;
+      margin-right: 6px;
+    }
+
+    
+    .cities {
+      list-style-type: upper-roman;
+      color: var(--muted);
+      margin-left: 40px;
+      padding-left: 0;
+    }
+
+    
+    .cities li {
+      position: relative;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      margin: 6px 0;
+      transition: transform .25s ease, background .25s ease;
+    }
+    .cities li:hover {
+      transform: translateX(6px);
+      background: rgba(245, 245, 255, 0.95);
+    }
+  
+    .cities li:nth-child(odd) {
+      border-left: 6px solid #8e44ad;
+    }
+    .cities li:nth-child(even) {
+      border-left: 6px solid #16a085;
+    }
+
+   
+    a:focus-visible {
+      outline: 2px solid var(--link);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+  
+    @media (max-width: 640px) {
+      .intro {
+        font-size: 16px;
+      }
+      ul.movies,
+      ol.cities {
+        margin-left: 0;
+        padding-left: 1.25rem;
+      }
+      #main-heading {
+        font-size: 1.75rem;
+      }
+  
+      .card { padding: 1rem; margin: .5rem 0; }
+    }
+
+   
+    header, main, footer { display: block; }
+    main { padding: 0 0.25rem; }
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      max-width: 760px;
+      margin: 0 auto;
+      border: 1px solid var(--card-border);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="card" aria-label="About Our Company Header">
+    <h1 id="main-heading">About Our Company</h1>
+  </header>
+
+  <main class="card" aria-label="Introduction">
+    <p class="intro">We are a tech company passionate about building innovative solutions.</p>
+
+    <p>Our mission is to <span class="highlight">empower people</span> with technology and creativity.</p>
+
+    <p>Want to know more? <a href="contact.html" target="_blank" rel="noopener">Contact Us</a></p>
+  </main>
+
+  <section class="card" aria-labelledby="movies-title" style="margin-top:16px;">
+    <h2 id="movies-title">Our Favorite Movies</h2>
+    <ul class="movies" aria-label="Favorite movies list">
+     
+      <li>Inception</li>
+      <li class="favorite">Interstellar</li>
+      <li>Avengers</li>
+      <li>The Matrix</li>
+    </ul>
+  </section>
+
+  <section class="card" aria-labelledby="cities-title" style="margin-top:16px;">
+    <h2 id="cities-title">Top Cities</h2>
+    <ol class="cities" aria-label="Top cities list">
+      <li>Paris</li>
+      <li>New York</li>
+      <li>Tokyo</li>
+      <li>Berlin</li>
+    </ol>
+  </section>
+</body>
+</html>
