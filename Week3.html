@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week 3 Layout Project - Enhanced</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --text: #1f2937;
+      --muted: #666;
+      --card: #fff;
+      --shadow: 0 8px 25px rgba(0,0,0,0.15);
+      --primary-start: #700688;
+      --primary-end: #1ddae4;
+      --cta-start: #ff416c;
+      --cta-end: #ff4b2b;
+      --sidebar-w: 260px;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      color: var(--text);
+      background: var(--bg);
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
+      color: white;
+      padding: 28px 20px;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      box-shadow: 4px 0 15px rgba(0,0,0,0.08);
+    }
+
+    .sidebar h2 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 18px;
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      padding-bottom: 10px;
+    }
+
+    .sidebar nav a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 12px 14px;
+      margin: 6px 0;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .sidebar nav a:hover,
+    .sidebar nav a:focus-visible {
+      background: rgba(255,255,255,0.15);
+      transform: translateX(5px);
+      outline: none;
+    }
+
+    /* Main content */
+    .main {
+      padding: 40px 48px;
+      overflow-y: auto;
+    }
+
+    header.site-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    header.site-header h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    header.site-header p {
+      color: var(--muted);
+    }
+
+    /* Sections */
+    section {
+      margin: 40px 0;
+    }
+
+    /* Products grid */
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .section-title h1 {
+      font-size: 26px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .card-body h3 {
+      font-size: 18px;
+      color: #1f2937;
+    }
+    .card-body p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+    }
+    .btn {
+      align-self: start;
+      padding: 12px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, var(--cta-start), var(--cta-end));
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-1px) scale(1.02); background: linear-gradient(135deg, #ff4b2b, #ff416c); }
+
+    /* Blogs / content area */
+    .blog-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .blog {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+      transition: transform 0.25s ease;
+    }
+    .blog:hover { transform: translateY(-4px); }
+
+    .blog h2 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .blog p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Accessibility helpers */
+    :focus-visible {
+      outline: 3px solid #1ddae4;
+      outline-offset: 2px;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 900px) {
+      body {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        box-shadow: none;
+      }
+      .main { padding: 20px; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f141b;
+        --text: #e6e6e6;
+        --muted: #a6a6a6;
+        --card: #141a20;
+        --shadow: 0 8px 20px rgba(0,0,0,0.5);
+        --primary-start: #4b7bec;
+        --primary-end: #1d3b8a;
+        --cta-start: #ff6b6b;
+        --cta-end: #e62e00;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Main navigation">
+    <h2>My Menu</h2>
+    <nav aria-label="Sidebar navigation">
+      <a href="#">🏠 Home</a>
+      <a href="#">🛒 Shop</a>
+      <a href="#">📝 Blog</a>
+      <a href="#">📞 Contact</a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main" role="main">
+    <header class="site-header" aria-label="Intro">
+      <h1>🛍 Featured Products</h1>
+      <p>Explore our curated collection of tech gadgets and accessories.</p>
+    </header>
+
+    <!-- Products Section -->
+    <section aria-labelledby="featured-products" class="products-section">
+      <div class="section-title" id="featured-products">
+        <h1>Products</h1>
+        <span class="sr-only" aria-live="polite"></span>
+      </div>
+
+      <div class="products" role="list">
+        <!-- Product 1 -->
+        <article class="card" role="listitem">
+          <img src="images/smartwatch.webp" alt="Smart Watch with health tracking" loading="lazy" />
+          <div class="card-body">
+            <h3>Smart Watch</h3>
+            <p>Latest smartwatch with health tracking, notifications, and sleek design.</p>
+            <a href="#" class="btn" aria-label="Buy Smart Watch">Buy Now</a>
+          </div>
+        </article>
+
+        <!-- Product 2 -->
+        <article class="card" role="listitem">
+          <img src="images/wireless-headphones.jpeg" alt="Wireless Headphones with noise cancellation" loading="lazy" />
+          <div class="card-body">
+            <h3>Wireless Headphones</h3>
+            <p>Crystal clear sound with noise cancellation and 24h battery.</p>
+            <a href="#" class="btn" aria-label="Buy Wireless Headphones">Buy Now</a>
+          </div>
+        </article>
+
+        <!-- Product 3 -->
+        <article class="card" role="listitem">
+          <img src="images/Laptop.jpg" alt="Gaming Laptop with RTX graphics" loading="lazy" />
+          <div class="card-body">
+            <h3>Gaming Laptop</h3>
+            <p>Powerful laptop with RTX graphics, 16GB RAM, and high-refresh display.</p>
+            <a href="#" class="btn" aria-label="Buy Gaming Laptop">Buy Now</a>
+          </div>
+        </article>
+
+        <!-- Product 4 -->
+        <article class="card" role="listitem">
+          <img src="images/camera.jpg" alt="DSLR Camera with 24MP and 4K video" loading="lazy" />
+          <div class="card-body">
+            <h3>DSLR Camera</h3>
+            <p>Capture stunning moments with a 24MP lens and 4K video recording.</p>
+            <a href="#" class="btn" aria-label="Buy DSLR Camera">Buy Now</a>
+          </div>
+        </article>
+
+        <!-- Product 5 -->
+        <article class="card" role="listitem">
+          <img src="images/tablet.webp" alt="Android Tablet with 10-inch display" loading="lazy" />
+          <div class="card-body">
+            <h3>Android Tablet</h3>
+            <p>Lightweight tablet with 10-inch display, fast performance, and long battery.</p>
+            <a href="#" class="btn" aria-label="Buy Android Tablet">Buy Now</a>
+          </div>
+        </article>
+
+        <!-- Product 6 -->
+        <article class="card" role="listitem">
+          <img src="images/shoes.jpg" alt="Running Shoes for everyday use" loading="lazy" />
+          <div class="card-body">
+            <h3>Running Shoes</h3>
+            <p>Comfortable and durable shoes designed for everyday running and workouts.</p>
+            <a href="#" class="btn" aria-label="Buy Running Shoes">Buy Now</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Blogs Section -->
+    <section aria-labelledby="latest-blogs" class="blogs-section">
+      <h1 id="latest-blogs" style="font-size:26px; margin:0 0 14px 0; text-align:left;">📰 Latest Blogs</h1>
+      <div class="blog-container" role="group" aria-label="Latest blog posts">
+        <article class="blog" aria-label="Tech Trends 2025">
+          <h2>🚀 Tech Trends 2025</h2>
+          <p>Discover the latest innovations in AI, blockchain, and cloud computing reshaping the world.</p>
+        </article>
+
+        <article class="blog" aria-label="UI/UX Tips">
+          <h2>💡 UI/UX Tips</h2>
+          <p>Improve user experience with modern design patterns, microinteractions, and accessibility best practices.</p>
+        </article>
+
+        <article class="blog" aria-label="Startup Growth">
+          <h2>🔥 Startup Growth</h2>
+          <p>Learn how emerging startups are leveraging digital tools to scale globally at lightning speed.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
